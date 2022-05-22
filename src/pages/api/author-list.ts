@@ -4,18 +4,14 @@ import type { Author } from '@prisma/client'
 import prisma from '@/libs/prisma'
 
 const handle = async (req: NextApiRequest, res: NextApiResponse) => {
-  let result: Author | undefined
+  let result: Author[] | undefined
 
   switch (req.method) {
     case 'GET':
+      result = await prisma.author.findMany()
+      res.status(200).json(result)
       break
     case 'POST':
-      result = await prisma.author.create({
-        data: {
-          ...req.body,
-        },
-      })
-      res.status(200).json(result)
       break
     default:
       res.setHeader('Allow', ['GET', 'POST'])

@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { saveAuthor } from '@/apis/author'
 
-export const Author = () => {
+export const CreateAuthorForm = () => {
   const [authorName, setAuthorName] = useState('')
 
   const onChange = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -18,9 +18,9 @@ export const Author = () => {
   }
 
   return (
-    <div className="form-control w-full max-w-xs">
+    <div className="form-control w-full max-w-xs mt-8">
       <label className="label">
-        <span className="label-text">Create anonymous user</span>
+        <span className="label-text">Create anonymous author</span>
       </label>
       <input
         type="text"

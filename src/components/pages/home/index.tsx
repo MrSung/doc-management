@@ -1,11 +1,13 @@
 import { DefaultTemplate } from '@/components/templates/default-template'
 
-import { Author } from './author'
+import { CreateAuthorForm } from './create-author-form'
+import { AuthorList } from './author-list'
 
 export const Home = () => {
   return (
     <DefaultTemplate>
-      <Author />
+      <CreateAuthorForm />
+      <AuthorList />
     </DefaultTemplate>
   )
 }

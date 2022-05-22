@@ -1,7 +1,7 @@
-import type { ReactElement, FC } from 'react'
+import type { ReactNode, FC } from 'react'
 
 type Props = {
-  children: ReactElement
+  children: ReactNode
 }
 
 export const DefaultTemplate: FC<Props> = ({ children }) => {
