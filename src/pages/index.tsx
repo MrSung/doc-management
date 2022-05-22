@@ -4,11 +4,7 @@ import type { GetServerSideProps } from 'next'
 import { Home } from '@/components/pages/home'
 
 const IndexPage: FC = () => {
-  return (
-    <div>
-      <Home />
-    </div>
-  )
+  return <Home />
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
