@@ -1,11 +1,11 @@
 import { DefaultTemplate } from '@/components/templates/default-template'
 
-import { UserInput } from './user-input'
+import { Author } from './author'
 
 export const Home = () => {
   return (
     <DefaultTemplate>
-      <UserInput />
+      <Author />
     </DefaultTemplate>
   )
 }
