@@ -1,10 +1,12 @@
 import type { FC } from 'react'
 import type { GetServerSideProps } from 'next'
 
+import { Home } from '@/components/pages/home'
+
 const IndexPage: FC = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <Home />
     </div>
   )
 }

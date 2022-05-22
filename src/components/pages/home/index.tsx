@@ -1,3 +1,9 @@
+import { UserInput } from './user-input'
+
 export const Home = () => {
-  return <div>Home</div>
+  return (
+    <div>
+      <UserInput />
+    </div>
+  )
 }
