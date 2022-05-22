@@ -1,7 +1,7 @@
-import React from 'react'
-import { GetServerSideProps } from 'next'
+import type { FC } from 'react'
+import type { GetServerSideProps } from 'next'
 
-const IndexPage: React.FC = () => {
+const IndexPage: FC = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold underline">Hello world!</h1>

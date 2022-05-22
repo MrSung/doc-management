@@ -10,6 +10,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "lint": "eslint . --fix",
     "fmt": "prettier --write '**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
