@@ -1,14 +1,11 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
 
-
 const IndexPage: React.FC = () => {
   return (
-      <div>
-        <h1 className="text-3xl font-bold underline">
-          Hello world!
-        </h1>
-      </div>
+    <div>
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+    </div>
   )
 }
 
