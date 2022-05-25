@@ -1,35 +1,53 @@
-import type { ChangeEvent, KeyboardEvent } from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { saveAuthor } from '@/apis/author'
 
 export const CreateAuthorForm = () => {
   const [authorName, setAuthorName] = useState('')
 
-  const onChange = (ev: ChangeEvent<HTMLInputElement>) => {
+  const isAuthorNameEmpty = authorName === ''
+
+  const onChangeInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setAuthorName(ev.target.value)
   }
-  const onKeyUp = (ev: KeyboardEvent<HTMLInputElement>) => {
-    if (ev.key.toLowerCase() !== 'enter') {
+  const onKeyUpInput = async (ev: React.KeyboardEvent<HTMLInputElement>) => {
+    if (isAuthorNameEmpty || ev.key.toLowerCase() !== 'enter') {
       return
     }
 
-    saveAuthor(authorName)
+    await saveAuthor(authorName)
+    setAuthorName('')
+  }
+  const onClickButton = async () => {
+    if (isAuthorNameEmpty) {
+      return
+    }
+
+    await saveAuthor(authorName)
+    setAuthorName('')
   }
 
   return (
-    <div className="form-control w-full max-w-xs mt-8">
-      <label className="label">
+    <form className="form-control grid gap-x-4 grid-rows-2 grid-cols-4 w-full max-w-lg mt-8">
+      <label className="label col-start-1 col-end-5 row-start-1 row-end-2">
         <span className="label-text">Create anonymous author</span>
       </label>
       <input
         type="text"
         value={authorName}
-        onChange={onChange}
-        onKeyUp={onKeyUp}
-        placeholder="Type author name here"
-        className="input input-bordered w-full max-w-xs"
+        onChange={onChangeInput}
+        onKeyUp={onKeyUpInput}
+        placeholder="Type author name"
+        className="input input-bordered col-start-1 col-end-4 w-full"
       />
-    </div>
+      <button
+        type="button"
+        disabled={isAuthorNameEmpty}
+        onClick={onClickButton}
+        className="btn btn-primary"
+      >
+        Add
+      </button>
+    </form>
   )
 }
