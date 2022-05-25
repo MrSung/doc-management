@@ -10,6 +10,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "clean": "rm -rf .next",
     "lint": "eslint . --fix",
     "fmt": "prettier --write '**/*.{js,jsx,ts,tsx}'",
     "prisma:studio": "prisma studio",
