@@ -13,8 +13,10 @@
     "clean": "rm -rf .next",
     "lint": "eslint . --fix",
     "fmt": "prettier --write '**/*.{js,jsx,ts,tsx}'",
+    "prisma:fmt": "prisma format",
+    "prisma:db:seed": "prisma db seed",
     "prisma:studio": "prisma studio",
-    "prisma:fmt": "prisma format"
+    "prisma:migrate:dev": "prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "3.14.0",
@@ -23,7 +25,8 @@
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-markdown": "8.0.3"
+    "react-markdown": "8.0.3",
+    "ulid": "^2.3.0"
   },
   "devDependencies": {
     "@types/node": "^16.11.36",
