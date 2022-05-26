@@ -4,9 +4,13 @@ import { useAtom } from 'jotai'
 import { saveAuthor } from '@/apis/author'
 import { authorNameAtom, isAuthorNameEmptyAtom } from '@/store/pages/home'
 
+import { useInitializeAuthorList } from './hooks'
+
 export const CreateAuthorForm = () => {
   const [authorName, setAuthorName] = useAtom(authorNameAtom)
   const [isAuthorNameEmpty] = useAtom(isAuthorNameEmptyAtom)
+
+  const initializeAuthorList = useInitializeAuthorList()
 
   const onChangeInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setAuthorName(ev.target.value)
@@ -18,6 +22,7 @@ export const CreateAuthorForm = () => {
 
     await saveAuthor(authorName)
     setAuthorName('')
+    initializeAuthorList()
   }
   const onClickButton = async () => {
     if (isAuthorNameEmpty) {
@@ -26,6 +31,7 @@ export const CreateAuthorForm = () => {
 
     await saveAuthor(authorName)
     setAuthorName('')
+    initializeAuthorList()
   }
 
   return (

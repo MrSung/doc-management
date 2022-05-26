@@ -2,23 +2,20 @@ import { useEffect } from 'react'
 import { useAtom } from 'jotai'
 import type { Author } from '@prisma/client'
 
-import { fetchAuthorList } from '@/apis/author-list'
 import { saveAuthorDelete } from '@/apis/author/delete'
 import { authorListAtom, selectedAuthorIdAtom } from '@/store/pages/home'
 
+import { useInitializeAuthorList } from './hooks'
+
 export const AuthorList = () => {
-  const [authorList, setAuthorList] = useAtom(authorListAtom)
+  const [authorList] = useAtom(authorListAtom)
   const [selectedAuthorId, setSelectedAuthorId] = useAtom(selectedAuthorIdAtom)
 
-  const initializeAuthorList = async () => {
-    const res = await fetchAuthorList()
-    const authorList = res.data
-
-    setAuthorList(authorList)
-  }
+  const initializeAuthorList = useInitializeAuthorList()
 
   const onClickDeleteButton = async (authorId: Author['id']) => {
     await saveAuthorDelete(authorId)
+
     initializeAuthorList()
   }
 
