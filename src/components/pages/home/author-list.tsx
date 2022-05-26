@@ -4,10 +4,11 @@ import type { Author } from '@prisma/client'
 
 import { fetchAuthorList } from '@/apis/author-list'
 import { saveAuthorDelete } from '@/apis/author/delete'
-import { authorListAtom } from '@/store/pages/home'
+import { authorListAtom, selectedAuthorIdAtom } from '@/store/pages/home'
 
 export const AuthorList = () => {
   const [authorList, setAuthorList] = useAtom(authorListAtom)
+  const [selectedAuthorId, setSelectedAuthorId] = useAtom(selectedAuthorIdAtom)
 
   const initializeAuthorList = async () => {
     const res = await fetchAuthorList()
@@ -28,7 +29,12 @@ export const AuthorList = () => {
   return (
     <div className="mt-8">
       {authorList.map((author) => (
-        <div key={author.id} className="badge badge-lg gap-2 mb-2 mr-2">
+        <div
+          key={author.id}
+          className={`badge badge-lg gap-2 mb-2 mr-2 ${
+            selectedAuthorId === author.id ? 'badge-primary' : ''
+          }`.trimEnd()}
+        >
           <button
             type="button"
             onClick={() => onClickDeleteButton(author.id)}
@@ -48,7 +54,9 @@ export const AuthorList = () => {
               />
             </svg>
           </button>
-          <span>{author.name}</span>
+          <button type="button" onClick={() => setSelectedAuthorId(author.id)}>
+            {author.name}
+          </button>
         </div>
       ))}
     </div>

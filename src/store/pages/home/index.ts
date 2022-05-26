@@ -5,3 +5,4 @@ export const authorNameAtom = atom('')
 export const isAuthorNameEmptyAtom = atom((get) => get(authorNameAtom) === '')
 
 export const authorListAtom = atom<Author[]>([])
+export const selectedAuthorIdAtom = atom<Author['id']>('')
