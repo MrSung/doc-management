@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useAtom } from 'jotai'
 import type { Author } from '@prisma/client'
 
 import { fetchAuthorList } from '@/apis/author-list'
 import { saveAuthorDelete } from '@/apis/author/delete'
+import { authorListAtom } from '@/store/pages/home'
 
 export const AuthorList = () => {
-  const [authorList, setAuthorList] = useState<Author[]>([])
+  const [authorList, setAuthorList] = useAtom(authorListAtom)
 
   const initializeAuthorList = async () => {
     const res = await fetchAuthorList()

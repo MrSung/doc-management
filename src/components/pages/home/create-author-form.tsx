@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useAtom } from 'jotai'
 
 import { saveAuthor } from '@/apis/author'
+import { authorNameAtom, isAuthorNameEmptyAtom } from '@/store/pages/home'
 
 export const CreateAuthorForm = () => {
-  const [authorName, setAuthorName] = useState('')
-
-  const isAuthorNameEmpty = authorName === ''
+  const [authorName, setAuthorName] = useAtom(authorNameAtom)
+  const [isAuthorNameEmpty] = useAtom(isAuthorNameEmptyAtom)
 
   const onChangeInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setAuthorName(ev.target.value)
