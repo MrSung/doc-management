@@ -1,9 +1,11 @@
 import { PrismaClient } from '@prisma/client'
 import type { Author } from '@prisma/client'
+import { parseISO, formatISO } from 'date-fns'
 import { ulid } from 'ulid'
 
 const prisma = new PrismaClient()
 
+const createdAt = parseISO(formatISO(new Date()))
 const authorData: Author[] = [
   {
     name: 'A.S. Muncher',
@@ -17,7 +19,7 @@ const authorData: Author[] = [
   {
     name: 'Dang Lin-Wang',
   },
-].map((a) => ({ ...a, id: ulid() }))
+].map((a) => ({ ...a, createdAt, id: ulid() }))
 
 async function main() {
   console.log(`Start seeding ...`)
