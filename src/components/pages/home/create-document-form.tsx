@@ -18,7 +18,9 @@ export const CreateDocumentForm = () => {
   return (
     <div className="form-control grid gap-4 grid-rows-2 grid-cols-4 w-full max-w-2xl mt-8">
       <label className="label col-start-1 col-end-5 row-start-1 row-end-2">
-        <span className="label-text">Create document</span>
+        <span className="label-text">
+          Create document (author needs to be selected)
+        </span>
       </label>
       <input
         type="text"
