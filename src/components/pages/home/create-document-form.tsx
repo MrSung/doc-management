@@ -1,6 +1,9 @@
 import { useAtom } from 'jotai'
 
+import { saveDocumentDirectory } from '@/apis/document/directory'
+import { saveDocument } from '@/apis/document'
 import {
+  selectedAuthorIdAtom,
   directoryAtom,
   filenameAtom,
   isAuthorIdSelectedAtom,
@@ -11,9 +14,24 @@ import {
 export const CreateDocumentForm = () => {
   const [directory, setDirectory] = useAtom(directoryAtom)
   const [filename, setFilename] = useAtom(filenameAtom)
+  const [selectedAuthorId] = useAtom(selectedAuthorIdAtom)
   const [isAuthorIdSelected] = useAtom(isAuthorIdSelectedAtom)
   const [isDirectoryValid] = useAtom(isDirectoryValidAtom)
   const [isFilenameValid] = useAtom(isFilenameValidAtom)
+
+  const onClickButton = async () => {
+    const docDirRes = await saveDocumentDirectory({
+      name: directory,
+      authorId: selectedAuthorId,
+    })
+    const { authorId, id: directoryId } = docDirRes.data
+
+    saveDocument({
+      name: filename,
+      directoryId,
+      authorId,
+    })
+  }
 
   return (
     <div className="form-control grid gap-4 grid-rows-2 grid-cols-4 w-full max-w-2xl mt-8">
@@ -39,6 +57,7 @@ export const CreateDocumentForm = () => {
       <button
         type="button"
         disabled={!isAuthorIdSelected || !isDirectoryValid || !isFilenameValid}
+        onClick={onClickButton}
         className="btn btn-primary"
       >
         Create
