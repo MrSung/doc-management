@@ -16,7 +16,7 @@ export const CreateAuthorForm = () => {
     setAuthorName(ev.target.value)
   }
   const onKeyUpInput = async (ev: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!isAuthorNameValid || ev.key.toLowerCase() !== 'enter') {
+    if (ev.key.toLowerCase() !== 'enter') {
       return
     }
 
@@ -25,10 +25,6 @@ export const CreateAuthorForm = () => {
     initializeAuthorList()
   }
   const onClickButton = async () => {
-    if (!isAuthorNameValid) {
-      return
-    }
-
     await saveAuthor(authorName)
     setAuthorName('')
     initializeAuthorList()
