@@ -8,16 +8,39 @@ datasource db {
 }
 
 model Author {
-  id       String     @id @default(cuid())
-  name     String     @unique
-  Document Document[]
+  id              String            @id @default(cuid())
+  name            String            @unique
+  createdAt       DateTime          @default(now())
+  DeletedAuthor   DeletedAuthor?
+  Directory       Directory[]
+  CreatedDocument CreatedDocument[]
 }
 
-model Document {
-  id           String   @id @default(cuid())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  filePathName String   @unique
-  author       Author   @relation(fields: [authorId], references: [id])
-  authorId     String
+model DeletedAuthor {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  author    Author   @relation(fields: [authorId], references: [id])
+  authorId  String   @unique
+}
+
+model Directory {
+  id              String            @id @default(cuid())
+  name            String            @unique
+  createdAt       DateTime          @default(now())
+  CreatedDocument CreatedDocument[]
+  author          Author            @relation(fields: [authorId], references: [id])
+  authorId        String
+}
+
+model CreatedDocument {
+  id          String    @id @default(cuid())
+  filename    String    @unique
+  title       String
+  content     String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  directory   Directory @relation(fields: [directoryId], references: [id])
+  directoryId String
+  author      Author    @relation(fields: [authorId], references: [id])
+  authorId    String
 }
