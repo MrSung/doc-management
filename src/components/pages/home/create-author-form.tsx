@@ -35,9 +35,9 @@ export const CreateAuthorForm = () => {
   }
 
   return (
-    <form className="form-control grid gap-x-4 grid-rows-2 grid-cols-4 w-full max-w-lg mt-8">
+    <form className="form-control grid gap-4 grid-rows-2 grid-cols-4 w-full max-w-lg mt-8">
       <label className="label col-start-1 col-end-5 row-start-1 row-end-2">
-        <span className="label-text">Create anonymous author</span>
+        <span className="label-text">Create author</span>
       </label>
       <input
         type="text"

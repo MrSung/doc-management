@@ -25,6 +25,9 @@ export const AuthorList = () => {
 
   return (
     <div className="mt-8">
+      <label className="label mb-4">
+        <span className="label-text">Select author</span>
+      </label>
       {authorList.map((author) => (
         <div
           key={author.id}
