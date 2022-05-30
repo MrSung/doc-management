@@ -1,6 +1,6 @@
 import type { Directory } from '@prisma/client'
 
-import { httpPostClient, isAxiosError } from '@/utils/http-client'
+import { httpPostClient, isApiError } from '@/utils/http-client'
 
 type SaveDocumentDirectoryParams = {
   name: Directory['name']
@@ -15,7 +15,7 @@ export const saveDocumentDirectory = async (
     params: { ...params },
   })
 
-  if (isAxiosError(res)) {
+  if (isApiError(res)) {
     console.error(res)
     return res
   }

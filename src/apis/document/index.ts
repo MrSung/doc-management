@@ -1,6 +1,6 @@
 import type { CreatedDocument } from '@prisma/client'
 
-import { httpPostClient, isAxiosError } from '@/utils/http-client'
+import { httpPostClient, isApiError } from '@/utils/http-client'
 
 type SaveDocumentParams = {
   name: CreatedDocument['filename']
@@ -25,7 +25,7 @@ export const saveDocument = async (params: SaveDocumentParams) => {
     },
   })
 
-  if (isAxiosError(res)) {
+  if (isApiError(res)) {
     console.error(res)
     return res
   }

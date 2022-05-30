@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import type { Author } from '@prisma/client'
+import type { Author, CreatedDocument } from '@prisma/client'
 
 export const authorNameAtom = atom('')
 export const isAuthorNameValidAtom = atom((get) => get(authorNameAtom) !== '')
@@ -31,3 +31,5 @@ export const isFilenameValidAtom = atom((get) => {
     !forbiddenFilenameRegex.test(filename)
   )
 })
+
+export const documentListAtom = atom<CreatedDocument[]>([])

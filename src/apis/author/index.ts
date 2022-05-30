@@ -1,6 +1,6 @@
 import type { Author } from '@prisma/client'
 
-import { httpPostClient, isAxiosError } from '@/utils/http-client'
+import { httpPostClient, isApiError } from '@/utils/http-client'
 
 export const saveAuthor = async (authorName: string) => {
   const res = await httpPostClient<Author, { name: string }>({
@@ -8,7 +8,7 @@ export const saveAuthor = async (authorName: string) => {
     params: { name: authorName },
   })
 
-  if (isAxiosError(res)) {
+  if (isApiError(res)) {
     console.error(res)
     return res
   }

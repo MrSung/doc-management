@@ -1,7 +1,7 @@
 import type { AxiosInstance, AxiosPromise } from 'axios'
 import axios from 'axios'
 
-export const isAxiosError = axios.isAxiosError
+export const isApiError = axios.isAxiosError
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: '/api/',

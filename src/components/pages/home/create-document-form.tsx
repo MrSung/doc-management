@@ -11,6 +11,8 @@ import {
   isFilenameValidAtom,
 } from '@/store/pages/home'
 
+import { useInitializeDocumentList } from './hooks'
+
 export const CreateDocumentForm = () => {
   const [directory, setDirectory] = useAtom(directoryAtom)
   const [filename, setFilename] = useAtom(filenameAtom)
@@ -19,6 +21,8 @@ export const CreateDocumentForm = () => {
   const [isDirectoryValid] = useAtom(isDirectoryValidAtom)
   const [isFilenameValid] = useAtom(isFilenameValidAtom)
 
+  const initializeDocumentList = useInitializeDocumentList()
+
   const onClickButton = async () => {
     const docDirRes = await saveDocumentDirectory({
       name: directory,
@@ -26,11 +30,12 @@ export const CreateDocumentForm = () => {
     })
     const { authorId, id: directoryId } = docDirRes.data
 
-    saveDocument({
+    await saveDocument({
       name: filename,
       directoryId,
       authorId,
     })
+    initializeDocumentList()
   }
 
   return (
