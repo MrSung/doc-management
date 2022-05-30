@@ -33,9 +33,9 @@ export const DocumentList = () => {
             {documentList.map((doc, i) => (
               <tr key={doc.id}>
                 <th>{i + 1}</th>
-                <td>{doc.directoryId}</td>
+                <td>{doc.directory.name}</td>
                 <td>{doc.filename}</td>
-                <td>{doc.authorId}</td>
+                <td>{doc.author.name}</td>
               </tr>
             ))}
           </tbody>
