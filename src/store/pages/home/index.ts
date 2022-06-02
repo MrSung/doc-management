@@ -1,5 +1,8 @@
 import { atom } from 'jotai'
-import type { Author, CreatedDocument, Directory } from '@prisma/client'
+
+import type { Author, JoinedCreatedDocument } from './type'
+
+export * from './type'
 
 export const authorNameAtom = atom('')
 export const isAuthorNameValidAtom = atom((get) => get(authorNameAtom) !== '')
@@ -32,7 +35,4 @@ export const isFilenameValidAtom = atom((get) => {
   )
 })
 
-type JoinedCreatedDocument = CreatedDocument & { author: Author } & {
-  directory: Directory
-}
 export const documentListAtom = atom<JoinedCreatedDocument[]>([])
