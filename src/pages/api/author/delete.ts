@@ -16,8 +16,7 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
           id: req.body.id,
         },
       })
-      res.json(result)
-      break
+      return res.json(result)
     default:
       handleException(req, res)
       break

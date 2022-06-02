@@ -10,8 +10,7 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case AllowedMethod.Get:
       result = await prisma.directory.findMany()
-      res.json(result)
-      break
+      return res.json(result)
     case AllowedMethod.Post:
       break
     default:

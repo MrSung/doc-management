@@ -15,8 +15,7 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
           author: true,
         },
       })
-      res.json(result)
-      break
+      return res.json(result)
     case AllowedMethod.Post:
       break
     default:
