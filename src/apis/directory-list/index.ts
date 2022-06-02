@@ -2,7 +2,7 @@ import type { Directory } from '@prisma/client'
 
 import { httpGetClient, isApiError } from '@/utils/http-client'
 
-export const fetchDocumentList = async () => {
+export const fetchDirectoryList = async () => {
   const res = await httpGetClient<Directory[]>({
     url: 'directory-list',
   })

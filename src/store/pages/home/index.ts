@@ -1,14 +1,14 @@
 import { atom } from 'jotai'
 
-import type { Author, JoinedCreatedDocument } from './type'
+import type * as type from './type'
 
 export * from './type'
 
 export const authorNameAtom = atom('')
 export const isAuthorNameValidAtom = atom((get) => get(authorNameAtom) !== '')
 
-export const authorListAtom = atom<Author[]>([])
-export const selectedAuthorIdAtom = atom<Author['id']>('')
+export const authorListAtom = atom<type.Author[]>([])
+export const selectedAuthorIdAtom = atom<type.Author['id']>('')
 export const isAuthorIdSelectedAtom = atom(
   (get) => get(selectedAuthorIdAtom) !== ''
 )
@@ -35,4 +35,6 @@ export const isFilenameValidAtom = atom((get) => {
   )
 })
 
-export const documentListAtom = atom<JoinedCreatedDocument[]>([])
+export const documentListAtom = atom<type.JoinedCreatedDocument[]>([])
+
+export const directoryListAtom = atom<type.Directory[]>([])

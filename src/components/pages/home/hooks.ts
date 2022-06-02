@@ -2,7 +2,12 @@ import { useAtom } from 'jotai'
 
 import { fetchAuthorList } from '@/apis/author-list'
 import { fetchDocumentList } from '@/apis/document-list'
-import { authorListAtom, documentListAtom } from '@/store/pages/home'
+import { fetchDirectoryList } from '@/apis/directory-list'
+import {
+  authorListAtom,
+  documentListAtom,
+  directoryListAtom,
+} from '@/store/pages/home'
 
 export const useInitializeAuthorList = () => {
   const [, setAuthorList] = useAtom(authorListAtom)
@@ -23,5 +28,16 @@ export const useInitializeDocumentList = () => {
     const documentList = res.data
 
     setDocumentList(documentList)
+  }
+}
+
+export const useInitializeDirectoryList = () => {
+  const [, setDirectoryList] = useAtom(directoryListAtom)
+
+  return async () => {
+    const res = await fetchDirectoryList()
+    const directoryList = res.data
+
+    setDirectoryList(directoryList)
   }
 }
