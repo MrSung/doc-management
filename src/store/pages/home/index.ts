@@ -37,4 +37,4 @@ export const isFilenameValidAtom = atom((get) => {
 
 export const documentListAtom = atom<type.JoinedCreatedDocument[]>([])
 
-export const directoryListAtom = atom<type.Directory[]>([])
+export const directoryListAtom = atom<type.JoinedDirectory[]>([])

@@ -1,9 +1,8 @@
-import type { Directory } from '@prisma/client'
-
 import { httpGetClient, isApiError } from '@/utils/http-client'
+import type { JoinedDirectory } from '@/store/pages/home'
 
 export const fetchDirectoryList = async () => {
-  const res = await httpGetClient<Directory[]>({
+  const res = await httpGetClient<JoinedDirectory[]>({
     url: 'directory-list',
   })
 

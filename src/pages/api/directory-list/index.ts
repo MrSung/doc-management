@@ -9,7 +9,11 @@ const handle = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case AllowedMethod.Get:
-      result = await prisma.directory.findMany()
+      result = await prisma.directory.findMany({
+        include: {
+          author: true,
+        },
+      })
       return res.json(result)
     case AllowedMethod.Post:
       break
