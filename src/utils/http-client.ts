@@ -11,27 +11,30 @@ export const httpGetClient = <T, K = undefined>(args: {
   url: string
   params?: K
 }): AxiosPromise<T> => {
-  try {
-    const res: AxiosPromise<T> = axiosInstance.get(
-      args.url,
-      args.params ?? undefined
-    )
+  const promise = axiosInstance
+    .get(args.url, args.params ?? undefined)
+    .then((res) => {
+      return res
+    })
+    .catch((err) => {
+      return err
+    })
 
-    return res
-  } catch (error) {
-    return error
-  }
+  return promise
 }
 
 export const httpPostClient = <T, K>(args: {
   url: string
   params: K
 }): AxiosPromise<T> => {
-  try {
-    const res: AxiosPromise<T> = axiosInstance.post(args.url, args.params)
+  const promise = axiosInstance
+    .post(args.url, args.params)
+    .then((res) => {
+      return res
+    })
+    .catch((err) => {
+      return err
+    })
 
-    return res
-  } catch (error) {
-    return error
-  }
+  return promise
 }
