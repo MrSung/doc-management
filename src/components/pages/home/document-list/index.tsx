@@ -66,7 +66,7 @@ export const DocumentList = () => {
                 index={i}
                 directoryName={dir.name}
                 authorName={dir.author.name}
-                onClickDeleteButton={() => onClickDeleteDocumentButton(dir.id)}
+                onClickDeleteButton={() => onClickDeleteDirectoryButton(dir.id)}
               />
             ))}
           </tbody>
