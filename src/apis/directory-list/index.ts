@@ -1,4 +1,6 @@
 import { httpGetClient, isApiError } from '@/utils/http-client'
+import { handleApiError } from '@/store/app'
+import type { ApiError } from '@/store/app'
 import type { JoinedDirectory } from '@/store/pages/home'
 
 export const fetchDirectoryList = async () => {
@@ -7,8 +9,8 @@ export const fetchDirectoryList = async () => {
   })
 
   if (isApiError(res)) {
-    console.error(res)
-    return res
+    handleApiError(res as ApiError)
+    return
   }
 
   return res

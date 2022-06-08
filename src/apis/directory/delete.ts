@@ -1,6 +1,8 @@
 import type { Directory } from '@prisma/client'
 
 import { httpPostClient, isApiError } from '@/utils/http-client'
+import { handleApiError } from '@/store/app'
+import type { ApiError } from '@/store/app'
 
 export const saveDirectoryDelete = async (directoryId: string) => {
   const res = await httpPostClient<Directory, { id: string }>({
@@ -9,8 +11,8 @@ export const saveDirectoryDelete = async (directoryId: string) => {
   })
 
   if (isApiError(res)) {
-    console.error(res)
-    return res
+    handleApiError(res as ApiError)
+    return
   }
 
   return res
