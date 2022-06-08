@@ -6,12 +6,13 @@ import { saveDocumentDelete } from '@/apis/document/delete'
 import { documentListAtom } from '@/store/pages/home'
 
 import { TableRow } from './table-row'
-import { useInitializeDocumentList } from './hooks'
+import { useInitializeDocumentList, useInitializeDirectoryList } from './hooks'
 
 export const DocumentList = () => {
   const [documentList] = useAtom(documentListAtom)
 
   const initializeDocumentList = useInitializeDocumentList()
+  const initializeDirectoryList = useInitializeDirectoryList()
 
   const onClickDeleteDocumentButton = async (
     documentId: CreatedDocument['id']
@@ -19,6 +20,7 @@ export const DocumentList = () => {
     await saveDocumentDelete(documentId)
 
     initializeDocumentList()
+    initializeDirectoryList()
   }
 
   useEffect(() => {

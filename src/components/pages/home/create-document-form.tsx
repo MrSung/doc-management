@@ -11,7 +11,7 @@ import {
   isFilenameValidAtom,
 } from '@/store/pages/home'
 
-import { useInitializeDocumentList } from './hooks'
+import { useInitializeDocumentList, useInitializeDirectoryList } from './hooks'
 
 export const CreateDocumentForm = () => {
   const [directory, setDirectory] = useAtom(directoryAtom)
@@ -21,7 +21,11 @@ export const CreateDocumentForm = () => {
   const [isDirectoryValid] = useAtom(isDirectoryValidAtom)
   const [isFilenameValid] = useAtom(isFilenameValidAtom)
 
+  const isSubmitEnabled =
+    isAuthorIdSelected && isDirectoryValid && isFilenameValid
+
   const initializeDocumentList = useInitializeDocumentList()
+  const initializeDirectoryList = useInitializeDirectoryList()
 
   const onClickButton = async () => {
     const docDirRes = await saveDocumentDirectory({
@@ -30,12 +34,18 @@ export const CreateDocumentForm = () => {
     })
     const { authorId, id: directoryId } = docDirRes.data
 
-    await saveDocument({
-      name: filename,
-      directoryId,
-      authorId,
-    })
+    if (filename !== '') {
+      await saveDocument({
+        name: filename,
+        directoryId,
+        authorId,
+      })
+    }
+
+    setDirectory('')
+    setFilename('')
     initializeDocumentList()
+    initializeDirectoryList()
   }
 
   return (
@@ -61,7 +71,7 @@ export const CreateDocumentForm = () => {
       />
       <button
         type="button"
-        disabled={!isAuthorIdSelected || !isDirectoryValid || !isFilenameValid}
+        disabled={!isSubmitEnabled}
         onClick={onClickButton}
         className="btn btn-primary"
       >

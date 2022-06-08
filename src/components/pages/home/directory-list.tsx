@@ -6,16 +6,18 @@ import { saveDirectoryDelete } from '@/apis/directory/delete'
 import { directoryListAtom } from '@/store/pages/home'
 
 import { TableRow } from './table-row'
-import { useInitializeDirectoryList } from './hooks'
+import { useInitializeDocumentList, useInitializeDirectoryList } from './hooks'
 
 export const DirectoryList = () => {
   const [directoryList] = useAtom(directoryListAtom)
 
+  const initializeDocumentList = useInitializeDocumentList()
   const initializeDirectoryList = useInitializeDirectoryList()
 
   const onClickDeleteDirectoryButton = async (directoryId: Directory['id']) => {
     await saveDirectoryDelete(directoryId)
 
+    initializeDocumentList()
     initializeDirectoryList()
   }
 

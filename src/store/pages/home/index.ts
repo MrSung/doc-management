@@ -17,7 +17,7 @@ export const directoryAtom = atom('')
 export const isDirectoryValidAtom = atom((get) => {
   const directory = get(directoryAtom)
 
-  return directory !== '' && !!/(.+)\/*([^/]+)$/.test(directory)
+  return directory !== '' && /(.+)\/*([^/]+)$/.test(directory)
 })
 
 export const filenameAtom = atom('')
@@ -28,10 +28,10 @@ export const isFilenameValidAtom = atom((get) => {
   const forbiddenFilenameRegex = /^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i
 
   return (
-    filename !== '' &&
-    allowedCharsRegex.test(filename) &&
-    !startsWithDotRegex.test(filename) &&
-    !forbiddenFilenameRegex.test(filename)
+    filename === '' ||
+    (allowedCharsRegex.test(filename) &&
+      !startsWithDotRegex.test(filename) &&
+      !forbiddenFilenameRegex.test(filename))
   )
 })
 
