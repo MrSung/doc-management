@@ -12,8 +12,10 @@ export const isApiErrorAtom = atom((get) =>
   Object.values(get(apiErrorAtom)).some((v) => typeof v !== 'undefined')
 )
 
-export const handleApiError = (error: type.ApiError) => {
+export const useHandleApiError = () => {
   const [, setApiError] = useAtom(apiErrorAtom)
 
-  setApiError({ message: error.message, code: error.code })
+  return (error: type.ApiError) => {
+    setApiError({ message: error.message, code: error.code })
+  }
 }
