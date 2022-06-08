@@ -16,7 +16,7 @@ export const TableRow = ({
   <tr>
     <th>{index + 1}</th>
     <td>{directoryName}/</td>
-    <td>{filename}</td>
+    {typeof filename !== 'undefined' && <td>{filename}</td>}
     <td>{authorName}</td>
     <td>
       <button

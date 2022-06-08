@@ -4,6 +4,7 @@ import { CreateAuthorForm } from './create-author-form'
 import { AuthorList } from './author-list'
 import { CreateDocumentForm } from './create-document-form'
 import { DocumentList } from './document-list'
+import { DirectoryList } from './directory-list'
 
 export const Home = () => {
   return (
@@ -12,6 +13,7 @@ export const Home = () => {
       <AuthorList />
       <CreateDocumentForm />
       <DocumentList />
+      <DirectoryList />
     </DefaultTemplate>
   )
 }

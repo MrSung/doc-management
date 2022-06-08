@@ -1,20 +1,17 @@
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
-import type { CreatedDocument, Directory } from '@prisma/client'
+import type { CreatedDocument } from '@prisma/client'
 
 import { saveDocumentDelete } from '@/apis/document/delete'
-import { saveDirectoryDelete } from '@/apis/directory/delete'
-import { documentListAtom, directoryListAtom } from '@/store/pages/home'
+import { documentListAtom } from '@/store/pages/home'
 
 import { TableRow } from './table-row'
-import { useInitializeDocumentList, useInitializeDirectoryList } from '../hooks'
+import { useInitializeDocumentList } from './hooks'
 
 export const DocumentList = () => {
   const [documentList] = useAtom(documentListAtom)
-  const [directoryList] = useAtom(directoryListAtom)
 
   const initializeDocumentList = useInitializeDocumentList()
-  const initializeDirectoryList = useInitializeDirectoryList()
 
   const onClickDeleteDocumentButton = async (
     documentId: CreatedDocument['id']
@@ -23,26 +20,21 @@ export const DocumentList = () => {
 
     initializeDocumentList()
   }
-  const onClickDeleteDirectoryButton = async (directoryId: Directory['id']) => {
-    await saveDirectoryDelete(directoryId)
-
-    initializeDirectoryList()
-  }
 
   useEffect(() => {
-    Promise.all([initializeDocumentList(), initializeDirectoryList()])
+    initializeDocumentList()
   }, [])
 
   return (
     <div className="mt-8">
       <label className="label mb-4">
-        <span className="label-text">List of files and directories</span>
+        <span className="label-text">List of files</span>
       </label>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
             <tr>
-              <th />
+              <th>Index</th>
               <th>Directory</th>
               <th>Filename</th>
               <th>Author</th>
@@ -58,15 +50,6 @@ export const DocumentList = () => {
                 filename={doc.filename}
                 authorName={doc.author.name}
                 onClickDeleteButton={() => onClickDeleteDocumentButton(doc.id)}
-              />
-            ))}
-            {directoryList.map((dir, i) => (
-              <TableRow
-                key={dir.id}
-                index={i}
-                directoryName={dir.name}
-                authorName={dir.author.name}
-                onClickDeleteButton={() => onClickDeleteDirectoryButton(dir.id)}
               />
             ))}
           </tbody>
