@@ -3,7 +3,10 @@ import { useAtom } from 'jotai'
 import type { Author } from '@prisma/client'
 
 import { saveAuthorDelete } from '@/apis/author/delete'
+import type { ApiError } from '@/store/app'
+import { useHandleApiError } from '@/store/app'
 import { authorListAtom, selectedAuthorIdAtom } from '@/store/pages/home'
+import { isApiError } from '@/utils/http-client'
 
 import { useInitializeAuthorList } from './hooks'
 
@@ -11,10 +14,16 @@ export const AuthorList = () => {
   const [authorList] = useAtom(authorListAtom)
   const [selectedAuthorId, setSelectedAuthorId] = useAtom(selectedAuthorIdAtom)
 
+  const handleApiError = useHandleApiError()
+
   const initializeAuthorList = useInitializeAuthorList()
 
   const onClickDeleteButton = async (authorId: Author['id']) => {
-    await saveAuthorDelete(authorId)
+    const res = await saveAuthorDelete(authorId)
+    if (isApiError(res)) {
+      handleApiError(res as ApiError)
+      return
+    }
 
     initializeAuthorList()
   }

@@ -2,13 +2,18 @@ import React from 'react'
 import { useAtom } from 'jotai'
 
 import { saveAuthor } from '@/apis/author'
+import type { ApiError } from '@/store/app'
+import { useHandleApiError } from '@/store/app'
 import { authorNameAtom, isAuthorNameValidAtom } from '@/store/pages/home'
+import { isApiError } from '@/utils/http-client'
 
 import { useInitializeAuthorList } from './hooks'
 
 export const CreateAuthorForm = () => {
   const [authorName, setAuthorName] = useAtom(authorNameAtom)
   const [isAuthorNameValid] = useAtom(isAuthorNameValidAtom)
+
+  const handleApiError = useHandleApiError()
 
   const initializeAuthorList = useInitializeAuthorList()
 
@@ -20,12 +25,22 @@ export const CreateAuthorForm = () => {
       return
     }
 
-    await saveAuthor(authorName)
+    const res = await saveAuthor(authorName)
+    if (isApiError(res)) {
+      handleApiError(res as ApiError)
+      return
+    }
+
     setAuthorName('')
     initializeAuthorList()
   }
   const onClickButton = async () => {
-    await saveAuthor(authorName)
+    const res = await saveAuthor(authorName)
+    if (isApiError(res)) {
+      handleApiError(res as ApiError)
+      return
+    }
+
     setAuthorName('')
     initializeAuthorList()
   }

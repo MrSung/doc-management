@@ -3,7 +3,10 @@ import { useAtom } from 'jotai'
 import type { CreatedDocument } from '@prisma/client'
 
 import { saveDocumentDelete } from '@/apis/document/delete'
+import type { ApiError } from '@/store/app'
+import { useHandleApiError } from '@/store/app'
 import { documentListAtom } from '@/store/pages/home'
+import { isApiError } from '@/utils/http-client'
 
 import { TableRow } from './table-row'
 import { useInitializeDocumentList, useInitializeDirectoryList } from './hooks'
@@ -11,13 +14,19 @@ import { useInitializeDocumentList, useInitializeDirectoryList } from './hooks'
 export const DocumentList = () => {
   const [documentList] = useAtom(documentListAtom)
 
+  const handleApiError = useHandleApiError()
+
   const initializeDocumentList = useInitializeDocumentList()
   const initializeDirectoryList = useInitializeDirectoryList()
 
   const onClickDeleteDocumentButton = async (
     documentId: CreatedDocument['id']
   ) => {
-    await saveDocumentDelete(documentId)
+    const res = await saveDocumentDelete(documentId)
+    if (isApiError(res)) {
+      handleApiError(res as ApiError)
+      return
+    }
 
     initializeDocumentList()
     initializeDirectoryList()

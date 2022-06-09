@@ -2,6 +2,8 @@ import { useAtom } from 'jotai'
 
 import { saveDocumentDirectory } from '@/apis/document/directory'
 import { saveDocument } from '@/apis/document'
+import type { ApiError } from '@/store/app'
+import { useHandleApiError } from '@/store/app'
 import {
   selectedAuthorIdAtom,
   directoryAtom,
@@ -10,6 +12,7 @@ import {
   isDirectoryValidAtom,
   isFilenameValidAtom,
 } from '@/store/pages/home'
+import { isApiError } from '@/utils/http-client'
 
 import { useInitializeDocumentList, useInitializeDirectoryList } from './hooks'
 
@@ -24,6 +27,8 @@ export const CreateDocumentForm = () => {
   const isSubmitEnabled =
     isAuthorIdSelected && isDirectoryValid && isFilenameValid
 
+  const handleApiError = useHandleApiError()
+
   const initializeDocumentList = useInitializeDocumentList()
   const initializeDirectoryList = useInitializeDirectoryList()
 
@@ -32,14 +37,23 @@ export const CreateDocumentForm = () => {
       name: directory,
       authorId: selectedAuthorId,
     })
+    if (isApiError(docDirRes)) {
+      handleApiError(docDirRes as ApiError)
+      return
+    }
+
     const { authorId, id: directoryId } = docDirRes.data
 
     if (filename !== '') {
-      await saveDocument({
+      const docRes = await saveDocument({
         name: filename,
         directoryId,
         authorId,
       })
+      if (isApiError(docRes)) {
+        handleApiError(docRes as ApiError)
+        return
+      }
     }
 
     setDirectory('')

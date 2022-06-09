@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const ErrorModal = ({ isOpen }: Props) => {
-  const [apiError] = useAtom(apiErrorAtom)
+  const [apiError, setApiError] = useAtom(apiErrorAtom)
 
   return (
     <div
@@ -16,7 +16,10 @@ export const ErrorModal = ({ isOpen }: Props) => {
       }`.trimEnd()}
     >
       <div className="modal-box relative">
-        <label className="btn btn-sm btn-circle absolute right-2 top-2">
+        <label
+          onClick={() => setApiError({ message: undefined, code: undefined })}
+          className="btn btn-sm btn-circle absolute right-2 top-2"
+        >
           ✕
         </label>
         <h3 className="text-lg font-bold">{apiError?.message}</h3>
